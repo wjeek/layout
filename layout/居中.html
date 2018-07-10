@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>居中</title>
+    <style>
+        .horizontal {
+            text-align: center;
+            background-color: skyblue;
+        }
+        .horizontal .child {
+            display: inline-block;
+            background-color: pink;
+        }
+
+        .horizontal2 {
+            background-color: skyblue;
+        }
+        .horizontal2 .child-wrap {
+            display: inline-block;
+            position: relative;
+            left: 50%;
+        }
+        .horizontal2 .child-wrap .child {
+            background-color: pink;
+            position: relative;
+            right: 50%;
+        }
+
+        .horizontal3 {
+            background-color: orange;
+            width: fit-content;
+            margin: auto;
+        }
+        .horizontal3 .child {
+            background-color: orange;
+        }
+
+        .single-line {
+            background-color: skyblue;
+            padding: 10px;
+        }
+        .single-line-2 {
+            height: 100px;
+            line-height: 100px;
+            background-color: orange;
+        }
+        .single-line-3 {
+            display: flex;
+            align-items: center;
+            background-color: pink;
+            height: 100px;
+        }
+
+        .multi-line {
+            display: table;
+            text-align: center;
+            background-color: skyblue;
+            width: 200px;
+            height: 150px;
+        }
+        .multi-line span {
+            display: table-cell;
+            vertical-align: middle;
+        }
+        .multi-line2 {
+            text-align: center;
+            background-color: orange;
+            width: 200px;
+            height: 200px;
+            margin-top: 10px;
+        }
+        .multi-line2::before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            width: 0px;
+            vertical-align: middle;
+        }
+        .multi-line2 span {
+            display: inline-block;
+            vertical-align: middle;
+            width: 100px;
+        }
+
+        .block.fix-height {
+            position: relative;
+            background-color: skyblue;
+            width: 100%;
+            height: 200px;
+        }
+        .block.fix-height .child {
+            position: absolute;
+            top: 50%;
+            margin-top: -50px;
+            height: 100px;
+            width: 100px;
+            background-color: pink;
+        }
+
+        .flexbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: skyblue;
+            height: 100px;
+        }
+        .center1 {
+            display: table;
+            background-color: orange;
+            height: 100px;
+            width: 100%;
+        }
+        .center1 .child {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+            background-color: pink;
+        }
+        .center2 {
+            position: relative;
+            background-color: orange;
+            width: 100%;
+            height: 100px;
+        }
+        .center2 .child {
+            margin: auto;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 200px;
+            height: 50px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+
+<h1>居中</h1>
+
+<h2>水平居中</h2>
+<ul>
+    <li>行内元素：text-align:center</li>
+    <li>block元素：margin 0 auto + 定宽</li>
+    <li>多个block元素：子元素可以display:inline-block,父元素text-align:center</li>
+    <li>position:absolute + left:-50% + transformX: -50%</li>
+    <li>父元素display:flex, 子元素justify-content: center</li>
+    <li>position:relative + (display:inline-block/float)</li>
+    <li>width: fit-content</li>
+</ul>
+<div style='text-align: center;background-color: skyblue'>
+    <span>inline element</span>
+</div>
+<div style='background-color: orange'>
+    <div style='margin: 0 auto; width: 200px; text-align: center;'>block element</div>
+</div>
+<div class="horizontal">
+    <div class="child">block-1</div>
+    <div class="child">block-2</div>
+    <div class="child">block-3</div>
+</div>
+<div style='display: flex; justify-content: center; background-color: orange;'>
+    <div>flex-child-1(IE8不支持)</div>
+</div>
+<div class='horizontal2'>
+    <div class="child-wrap">
+        <div class="child">position:relative + display:inline-block</div>
+    </div>
+</div>
+<div class="horizontal3">
+    <div class="child">width: fit-content(兼容性太差)</div>
+</div>
+<br>
+
+<h2>垂直居中</h2>
+<h3>内联元素-单行文本居中</h3>
+<ul>
+    <li>1. 如果高度自适应，可以上下设置相同的padding值</li>
+    <li>2. 高度已知，可设置height和line-height相等</li>
+    <li>3. 父元素display:flex, align-items: center</li>
+</ul>
+<div class="single-line">高度自适应，可以上下设置相同的padding值</div>
+<div class="single-line-2">高度已知，可设置height和line-height相等</div>
+<div class="single-line-3">父元素display:flex, align-items: center</div>
+<br>
+
+<h3>内联元素-多行文本居中</h3>
+<ul>
+    <li>1. display:table + vertical-align:middle</li>
+    <li>2. display:inline-block + vertical-align:middle</li>
+    <li>3. 父元素display:flex, align-items: center（同上）</li>
+</ul>
+<div class="multi-line">
+    <span>display:table + vertical-align:middle</span>
+</div>
+<div class="multi-line2">
+    <span>display:inline-block + vertical-align:middle</span>
+</div>
+<br>
+
+<h3>块级元素(block)</h3>
+<ul>
+    <li>1. 已知高度：position:absolute + top:-50% + margin-top: 负元素height/2</li>
+    <li>2. 未知高度：position:absolute + top:-50% + transformY: -50%</li>
+    <li>3. 父元素display:flex, align-items: center（同上）</li>
+</ul>
+<div class="block fix-height">
+    <div class="child">child</div>
+</div>
+
+<h2>水平垂直居中</h2>
+<ul>
+    <li>1. display:table + vertical-align + text-align:center</li>
+    <li>2. 父元素flex, justify-content: center + align-items: center</li>
+    <li>3. position: absolute + top:-50%,left:-50% + transform: (-50%, -50%).固定搞度可用负margin偏移替代</li>
+    <li>4. position + margin</li>
+</ul>
+<div class='center1'>
+    <div class="child">display:table</div>
+</div>
+<div class="flexbox">
+    <div>flexbox</div>
+</div>
+<div class="center2">
+    <div class="child">position+margin</div>
+</div>
+
+</body>
+</html>

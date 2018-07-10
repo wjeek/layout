@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三栏布局</title>
+    <style>
+        .clearfix::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+        .box .float {
+            float: left;
+        }
+        .box .content {
+            background-color: skyblue;
+            width: 100%;
+        }
+        .box .left {
+            background-color: pink;
+            width: 200px;
+            height: 50px;
+            margin-left: -100%;
+        }
+        .box .right {
+            background-color: pink;
+            width: 200px;
+            margin-left: -200px;
+        }
+
+        .box .fly-content {
+            /*这个也可以将content多包一层，里面用margin撑开*/
+            padding: 0 200px;
+            box-sizing: border-box;
+        }
+
+        .holy-box {
+            margin: 0 200px;
+        }
+        .holy-box .left {
+            position: relative;
+            left: -200px;
+        }
+        .holy-box .right {
+            position: relative;
+            right: -200px;
+        }
+
+        .float-box .left, .float-box .right {
+            float: left;
+            background-color: pink;
+            height: 50px;
+            width: 200px;
+        }
+        .float-box .right {
+            float: right
+        }
+        .float-box .content {
+            background-color: skyblue;
+            margin: 0 200px;
+        }
+
+
+        .flex {
+            display: flex;
+        }
+        .flex .left, .flex .right {
+            background-color: pink;
+            width: 200px;
+            height: 50px;
+        }
+        .flex .content {
+            flex: 1;
+            background-color: skyblue;
+        }
+
+
+        .table {
+            display: table;
+        }
+        .table .left, .table .right {
+            display: table-cell;
+            background-color: pink;
+            min-width: 200px;
+            height: 50px;
+        }
+        .table .content {
+            display: table-cell;
+            width: 100%;
+            background-color: skyblue;
+        }
+    </style>
+</head>
+<body>
+
+<h1>三栏布局（两边定宽，中间自适应）</h3>
+
+<h3>双飞翼布局</h3>
+<ul>
+    <li>1. 三栏都是float</li>
+    <li>2. 主内容content放在最前面, 使用padding+border-box修饰，使内容不被left和right的内容覆盖</li>
+    <li>3. 使用负margin，设置left为margin-left: -100%, right为margin-left: right的宽度</li>
+</ul>
+<div class="box clearfix">
+    <div class="content float fly-content">content</div>
+    <div class="left float">left</div>
+    <div class="right float">right</div>
+</div>
+<p>优点：主内容先加载</p>
+<p>缺点：应设置内容的最小宽度，否则整个布局会换行显示。</p>
+<hr>
+
+<h3>圣杯布局
+<span style='font-size: 14px'>(整体思路和双飞翼布局一样，不同的是对content被覆盖内容用了不同的处理方法)</span>
+</h3>
+<ul>
+    <li>将left和right的内容，用相对定位移出content的区域。</li>
+</ul>
+<div class="box clearfix holy-box">
+    <div class="content float">content</div>
+    <div class="left float">left</div>
+    <div class="right float">right</div>
+</div>
+<p>优缺点：同上</p>
+<hr>
+
+<h3>左右float</h3>
+<ul>
+    <li>使用左右浮动，主内容放在最后。</li>
+</ul>
+<div class="float-box clearfix">
+    <div class="left">left</div>
+    <div class="right">right</div>
+    <div class="content">content</div>
+</div>
+<p>缺点：主内容在最后加载</p>
+
+<h3>flex实现</h3>
+<ul>
+    <li>父元素display:flex</li>
+    <li>左右定宽，主内容flex:1</li>
+</ul>
+<div class="flex">
+    <div class="left">left</div>
+    <div class="content">content</div>
+    <div class="right">right</div>
+</div>
+<p>优点：等高</p>
+<hr>
+
+<h3>table实现</h3>
+<div class="table">
+    <div class="left">left</div>
+    <div class="content">content</div>
+    <div class="right">right</div>
+</div>
+<hr>
+
+</body>
+</html>

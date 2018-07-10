@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>两栏布局</title>
+    <style>
+        /*float实现*/
+        .float-box::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+        .float-box .left {
+            float: left;
+            width: 200px;
+            height: 100px;
+            background-color: skyblue;
+        }
+        .float-box .right {
+            background-color: pink;
+        }
+
+        /*position+absolute*/
+        .position-box {
+            position: relative;
+            overflow: hidden;
+        }
+        .position-box .left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100px;
+            background-color: skyblue;
+        }
+        .position-box .right {
+            margin-left: 200px;
+            background-color: pink;
+        }
+
+        /*flex实现*/
+        .flex {
+            display: flex;
+        }
+        .flex .left {
+            width: 200px;
+            height: 100px;
+            background-color: skyblue;
+        }
+        .flex .right {
+            flex: 1;
+            background-color: pink;
+        }
+
+        /*table实现*/
+        .table {
+            display: table;
+            width: 100%;
+        }
+        .table .left {
+            display: table-cell;
+            width: 200px;
+            height: 100px;
+            background-color: skyblue;
+        }
+        .table .right {
+            display: table-cell;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+
+<h1>两栏布局(一栏固定，一栏自适应)</h1>
+
+<!-- 一栏固定，一栏自适应 -->
+<h3>float实现</h3>
+<div class="float-box">
+    <div class="left">left</div>
+    <div class="right">right</div>
+</div>
+<hr>
+
+<h3>position-absolute实现</h3>
+<div class="position-box">
+    <div class="left">left(position)</div>
+    <div class="right">right</div>
+</div>
+<p>缺点：因left脱离文档流，父级盒子无法根据内容自适应</p>
+<hr>
+
+<h3>flex实现</h3>
+<div class="flex">
+    <div class="left">left</div>
+    <div class="right">right</div>
+</div>
+<p>缺点：老式浏览器，如IE8不支持</p>
+<p>优点：默认每一列都等高</p>
+<hr>
+
+<h3>table实现</h3>
+<div class="table">
+    <div class="left">left</div>
+    <div class="right">right</div>
+</div>
+<p>缺点：语义化不强</p>
+<p>优点：默认每一列都等高</p>
+<hr>
+
+</body>
+</html>
